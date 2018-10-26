@@ -1,0 +1,7 @@
+# build artifacts
+.gopath/pkg
+build
+release
+
+# custom configuration files used during development
+*.yaml
