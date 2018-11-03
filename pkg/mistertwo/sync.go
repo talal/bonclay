@@ -25,7 +25,8 @@ import (
 	"path/filepath"
 )
 
-// SyncTask does exactly that.
+// SyncTask uses 'source:target' pairs defined in the configuration spec
+// to link the sources to the targets.
 func SyncTask(config *Configuration) {
 	fmt.Println(withColor(cyan, "bonclay: sync task\n"))
 
@@ -69,6 +70,9 @@ func SyncTask(config *Configuration) {
 	}
 }
 
+// sync creates a symbolic link between the source and target. If opts.Clean = true then
+// broken symlinks in the source's parent directory are removed.
+// Non-returned errors are sent to a channel.
 func sync(opts SyncOpts, src, target string, ch chan string) error {
 	// validate target and catch common errors
 	_, err := os.Lstat(target)

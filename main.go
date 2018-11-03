@@ -30,11 +30,11 @@ var (
 	version string
 
 	app           = kingpin.New("bonclay", "A simple dotfiles manager.")
-	syncCmd       = app.Command("sync", "Sync does just that.")
+	syncCmd       = app.Command("sync", "Sync creates symbolic links between 'source:target' pairs defined in the configuration spec.")
 	syncConfig    = syncCmd.Arg("config-file", "Path to the configuration file (.yaml).").Required().String()
-	backupCmd     = app.Command("backup", "Backup does just that.")
+	backupCmd     = app.Command("backup", "Backup uses the `source:target' pairs defined in the configuration spec to copy the sources to the targets.")
 	backupConfig  = backupCmd.Arg("config-file", "Path to the configuration file (.yaml).").Required().String()
-	restoreCmd    = app.Command("restore", "Restore does just that.")
+	restoreCmd    = app.Command("restore", "Restore is the reverse of backup, it copies the targets to the sources.")
 	restoreConfig = restoreCmd.Arg("config-file", "Path to the configuration file (.yaml).").Required().String()
 )
 

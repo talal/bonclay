@@ -20,11 +20,12 @@ package mistertwo
 
 import "fmt"
 
-// BackupTask does exactly that.
+// BackupTask uses 'source:target' pairs defined in the configuration spec
+// to copy the sources to the targets.
 func BackupTask(config *Configuration) {
 	fmt.Println(withColor(cyan, "bonclay: backup task\n"))
 
-	// since copy is called recursively, therefore non-returned errors are
+	// since copy() is called recursively, therefore non-returned errors are
 	// received through a channel (if any) and collected in the errors slice
 	var errors []string
 	ch := make(chan string)

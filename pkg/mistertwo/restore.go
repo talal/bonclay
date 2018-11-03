@@ -22,11 +22,12 @@ import (
 	"fmt"
 )
 
-// RestoreTask does exactly that.
+// RestoreTask uses 'source:target' pairs defined in the configuration spec
+// to copy the targets to the sources. It is the reverse of BackupTask.
 func RestoreTask(config *Configuration) {
 	fmt.Println(withColor(cyan, "bonclay: restore task\n"))
 
-	// since copy is called recursively, therefore non-returned errors are
+	// since copy() is called recursively, therefore non-returned errors are
 	// received through a channel (if any) and collected in the errors slice
 	var errors []string
 	ch := make(chan string)
