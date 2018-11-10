@@ -29,7 +29,7 @@ var (
 	// defined by the Makefile at compile time
 	version string
 
-	app           = kingpin.New("bonclay", "A simple dotfiles manager.")
+	app           = kingpin.New("bonclay", "A fast and minimal backup tool.")
 	syncCmd       = app.Command("sync", "Sync creates symbolic links between 'source:target' pairs defined in the configuration spec.")
 	syncConfig    = syncCmd.Arg("config-file", "Path to the configuration file (.yaml).").Required().String()
 	backupCmd     = app.Command("backup", "Backup uses the `source:target' pairs defined in the configuration spec to copy the sources to the targets.")
