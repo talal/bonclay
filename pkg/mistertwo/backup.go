@@ -7,15 +7,7 @@ import "fmt"
 func BackupTask(config *Configuration) {
 	fmt.Println(withColor(cyan, "bonclay: backup task\n"))
 
-	// since copy() is called recursively, therefore non-returned errors are
-	// received through a channel (if any) and collected in the errors slice
 	var errors []string
-	ch := make(chan string)
-	go func() {
-		for i := range ch {
-			errors = append(errors, i)
-		}
-	}()
 	for src, dst := range config.Spec {
 		srcPath, err := fullPath(src)
 		if err != nil {
@@ -30,7 +22,7 @@ func BackupTask(config *Configuration) {
 			continue
 		}
 
-		err = copy(config.Backup.Overwrite, srcPath, dstPath, ch)
+		err = copy(config.Backup.Overwrite, srcPath, dstPath)
 		if err != nil {
 			errors = append(errors, err.Error())
 			printTaskResponse(false, src, dst)
@@ -38,7 +30,6 @@ func BackupTask(config *Configuration) {
 			printTaskResponse(true, src, dst)
 		}
 	}
-	close(ch)
 
 	if len(errors) > 0 {
 		printTaskErrors("backup", errors)
