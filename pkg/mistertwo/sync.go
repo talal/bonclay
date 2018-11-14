@@ -1,16 +1,17 @@
 package mistertwo
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+
+	"github.com/talal/bonclay/pkg/color"
 )
 
 // SyncTask uses 'source:target' pairs defined in the configuration spec
 // to link the sources to the targets.
 func SyncTask(config *Configuration) {
-	fmt.Println(withColor(cyan, "bonclay: sync task\n"))
+	color.Println(color.Cyan, "bonclay: sync task\n")
 
 	// non-returned errors are received through a
 	// channel (if any) and collected in the errors slice
@@ -48,7 +49,7 @@ func SyncTask(config *Configuration) {
 	if len(errors) > 0 {
 		printTaskErrors("sync", errors)
 	} else {
-		fmt.Println(withColor(green, "\nAll files/directories were successfully synced."))
+		color.Println(color.Green, "\nAll files/directories were successfully synced.")
 	}
 }
 

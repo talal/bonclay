@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/alecthomas/kingpin"
+	"github.com/talal/bonclay/pkg/color"
 )
 
 const (
@@ -47,7 +48,7 @@ func printTaskErrors(taskName string, errors []string) {
 		}
 	}
 
-	fmt.Println(withColorf(red, "\nSome errors occured during %s:", taskName))
+	color.Printf(color.Red, "\nSome errors occured during %s:\n", taskName)
 	for _, v := range uniqueErrors {
 		fmt.Printf("\t%s\n", v)
 	}

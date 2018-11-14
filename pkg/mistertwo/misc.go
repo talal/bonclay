@@ -5,16 +5,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-)
 
-type color string
-
-const (
-	red     color = "0;31"
-	green   color = "0;32"
-	blue    color = "0;34"
-	magenta color = "0;35"
-	cyan    color = "0;36"
+	"github.com/talal/bonclay/pkg/color"
 )
 
 func fullPath(str string) (string, error) {
@@ -28,20 +20,13 @@ func fullPath(str string) (string, error) {
 	return path, nil
 }
 
-func withColorf(c color, str string, args ...interface{}) string {
-	return withColor(c, fmt.Sprintf(str, args...))
-}
-
-func withColor(c color, str string) string {
-	return fmt.Sprintf("\x1B[%sm%s\x1B[0m", c, str)
-}
-
 func printTaskResponse(success bool, src, dst string) {
 	arrow := "-->"
-	c := green
+	c := color.Green
 	if !success {
-		c = red
+		c = color.Red
 	}
 
-	fmt.Printf("%s %s %s\n", withColor(blue, src), withColor(c, arrow), withColor(blue, dst))
+	fmt.Printf("%s %s %s\n", color.Sprintf(color.Blue, src),
+		color.Sprintf(c, arrow), color.Sprintf(color.Blue, dst))
 }

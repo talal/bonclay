@@ -1,11 +1,13 @@
 package mistertwo
 
-import "fmt"
+import (
+	"github.com/talal/bonclay/pkg/color"
+)
 
 // RestoreTask uses 'source:target' pairs defined in the configuration spec
 // to copy the targets to the sources. It is the reverse of BackupTask.
 func RestoreTask(config *Configuration) {
-	fmt.Println(withColor(cyan, "bonclay: restore task\n"))
+	color.Println(color.Cyan, "bonclay: restore task\n")
 
 	var errors []string
 	for dst, src := range config.Spec {
@@ -34,6 +36,6 @@ func RestoreTask(config *Configuration) {
 	if len(errors) > 0 {
 		printTaskErrors("restore", errors)
 	} else {
-		fmt.Println(withColor(green, "\nAll files/directories were successfully restored."))
+		color.Println(color.Green, "\nAll files/directories were successfully restored.")
 	}
 }
