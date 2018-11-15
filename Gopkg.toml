@@ -1,8 +1,4 @@
 [[constraint]]
-  name = "github.com/alecthomas/kingpin"
-  branch = "master"
-
-[[constraint]]
   name = "gopkg.in/yaml.v2"
   version = "2.2.1"
 

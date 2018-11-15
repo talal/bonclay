@@ -2,8 +2,8 @@ package mistertwo
 
 import (
 	"fmt"
+	"os"
 
-	"github.com/alecthomas/kingpin"
 	"github.com/talal/bonclay/pkg/color"
 )
 
@@ -54,7 +54,11 @@ func printTaskErrors(taskName string, errors []string) {
 	}
 }
 
-// fatalIfError is a convenient wrapper for kingpin.FatalIfError().
 func fatalIfError(err error, str string) {
-	kingpin.FatalIfError(err, str)
+	if err == nil {
+		return
+	}
+
+	fmt.Fprintf(os.Stderr, "error: %s: %v\n", str, err)
+	os.Exit(1)
 }

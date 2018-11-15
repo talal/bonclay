@@ -52,7 +52,7 @@ func (config *Configuration) validate() (isValid bool) {
 	isValid = true // until proven otherwise
 
 	missing := func(str string) {
-		fmt.Fprintf(os.Stderr, "bonclay: error: invalid config file: %s\n", str)
+		fmt.Fprintf(os.Stderr, "error: invalid config file: %s\n", str)
 		isValid = false
 	}
 
