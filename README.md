@@ -1,7 +1,7 @@
 # Bonclay
 
 [![GitHub release](https://img.shields.io/github/release/talal/bonclay.svg)](https://github.com/talal/bonclay/releases/latest)
-[![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/talal/bonclay.svg?branch=master)](https://travis-ci.org/talal/bonclay)
 [![Go Report Card](https://goreportcard.com/badge/github.com/talal/bonclay)](https://goreportcard.com/report/github.com/talal/bonclay)
 [![GoDoc](https://godoc.org/github.com/talal/bonclay?status.svg)](https://godoc.org/github.com/talal/bonclay)
