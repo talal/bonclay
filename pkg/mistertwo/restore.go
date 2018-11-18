@@ -1,7 +1,7 @@
 package mistertwo
 
 import (
-	"github.com/talal/bonclay/pkg/color"
+	"github.com/talal/go-bits/color"
 )
 
 // RestoreTask uses 'source:target' pairs defined in the configuration spec

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/talal/bonclay/pkg/color"
+	"github.com/talal/go-bits/color"
 )
 
 const (

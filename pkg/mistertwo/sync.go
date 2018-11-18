@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/talal/bonclay/pkg/color"
+	"github.com/talal/go-bits/color"
 )
 
 // SyncTask uses 'source:target' pairs defined in the configuration spec

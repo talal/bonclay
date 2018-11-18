@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/talal/bonclay/pkg/color"
+	"github.com/talal/go-bits/color"
 )
 
 func fullPath(str string) (string, error) {

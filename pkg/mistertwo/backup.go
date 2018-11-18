@@ -1,8 +1,6 @@
 package mistertwo
 
-import (
-	"github.com/talal/bonclay/pkg/color"
-)
+import "github.com/talal/go-bits/color"
 
 // BackupTask uses 'source:target' pairs defined in the configuration spec
 // to copy the sources to the targets.
