@@ -15,41 +15,41 @@ var (
 
 	versionFlag bool
 
-	usage = strings.Replace(strings.Replace(strings.TrimSpace(`
+	usage = strings.Replace(strings.TrimSpace(`
 bonclay <version>
 A fast and minimal backup tool.
 
 Usage:
-\tbonclay <command> <config-file>
+  bonclay <command> <config-file>
 
 Flags:
-\t-h, --help
-\t\t\tShow usage information.
-\t-v, --version
-\t\t\tShow application version.
+  -h, --help
+      Show usage information.
+  -v, --version
+      Show application version.
 
 Commands:
-\tsync <config-file>
-\t\t\tSync creates symbolic links between 'source:target' pairs defined in the
-\t\t\tconfiguration spec.
+  sync <config-file>
+      Sync creates symbolic links between 'source:target' pairs defined in the
+      configuration spec.
 
-\tbackup <config-file>
-\t\t\tBackup uses the 'source:target' pairs defined in the configuration spec
-\t\t\tto copy the sources to the targets.
+  backup <config-file>
+      Backup uses the 'source:target' pairs defined in the configuration spec
+      to copy the sources to the targets.
 
-\trestore <config-file>
-\t\t\tRestore is the reverse of backup, it copies the targets to the sources.
-`), `\t`, "  ", -1), "<version>", version, -1)
+  restore <config-file>
+      Restore is the reverse of backup, it copies the targets to the sources.
+`), "<version>", version, -1)
 
-	errStr = strings.Replace(strings.TrimSpace(`
+	errStr = strings.TrimSpace(`
 error: The following required arguments were not provided:
-\t\t<command> <config-file>
+    <command> <config-file>
 
 Usage:
-\tbonclay <command> <config-file>
+  bonclay <command> <config-file>
 
 For more information try --help
-`), `\t`, "  ", -1)
+`)
 )
 
 func init() {
