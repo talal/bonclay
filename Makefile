@@ -31,11 +31,11 @@ install: FORCE all
 	install -m 0755 build/bonclay "$(DESTDIR)$(PREFIX)/bin/bonclay"
 
 ifeq ($(GOOS),windows)
-release: release/$(BINARY64)
+release: FORCE release/$(BINARY64)
 	cd release && cp -f $(BINARY64) bonclay.exe && zip $(RELEASE64).zip bonclay.exe
 	cd release && rm -f bonclay.exe
-else 
-release: release/$(BINARY64)
+else
+release: FORCE release/$(BINARY64)
 	cd release && cp -f $(BINARY64) bonclay && tar -czf $(RELEASE64).tar.gz bonclay
 	cd release && rm -f bonclay
 endif
@@ -49,8 +49,5 @@ release/$(BINARY64): FORCE
 
 clean: FORCE
 	rm -rf build release
-
-vendor: FORCE
-	dep ensure
 
 .PHONY: FORCE
