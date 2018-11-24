@@ -9,16 +9,12 @@ import (
 	"github.com/talal/bonclay/pkg/mistertwo"
 )
 
-var (
-	// set by the Makefile at linking time
-	version string
+// set by the Makefile at linking time
+var version string
 
-	versionFlag bool
+var versionFlag bool
 
-	usage = strings.Replace(strings.TrimSpace(`
-bonclay <version>
-A fast and minimal backup tool.
-
+const usageInfo = `
 Usage:
   bonclay <command> <config-file>
 
@@ -38,10 +34,11 @@ Commands:
       to copy the sources to the targets.
 
   restore <config-file>
-      Restore is the reverse of backup, it copies the targets to the sources.
-`), "<version>", version, -1)
+      Restore is the reverse of backup, it uses the 'source:target' pairs defined
+      in the configuration spec to copy the targets to the sources.
+`
 
-	errStr = strings.TrimSpace(`
+const errMsg = `
 error: The following required arguments were not provided:
     <command> <config-file>
 
@@ -49,8 +46,7 @@ Usage:
   bonclay <command> <config-file>
 
 For more information try --help
-`)
-)
+`
 
 func init() {
 	flag.BoolVar(&versionFlag, "version", false, "Show application version.")
@@ -58,7 +54,7 @@ func init() {
 }
 
 func main() {
-	flag.Usage = func() { printAndExit(usage, 0) }
+	flag.Usage = func() { printAndExit(strings.TrimSpace(usageInfo), 0) }
 	flag.Parse()
 
 	if versionFlag {
@@ -68,7 +64,7 @@ func main() {
 	args := flag.Args()
 
 	if len(args) != 2 {
-		printAndExit(errStr, 1)
+		printAndExit(strings.TrimSpace(errMsg), 1)
 	}
 
 	switch args[0] {
