@@ -7,12 +7,11 @@ import (
 	"strings"
 
 	"github.com/talal/bonclay/pkg/mistertwo"
+	"github.com/talal/bonclay/pkg/tasks"
 )
 
 // set by the Makefile at linking time
 var version string
-
-var versionFlag bool
 
 const usageInfo = `
 Usage:
@@ -48,6 +47,8 @@ Usage:
 For more information try --help
 `
 
+var versionFlag bool
+
 func init() {
 	flag.BoolVar(&versionFlag, "version", false, "Show application version.")
 	flag.BoolVar(&versionFlag, "v", false, "Show application version.")
@@ -70,13 +71,13 @@ func main() {
 	switch args[0] {
 	case "sync":
 		c := mistertwo.NewConfiguration(args[1])
-		mistertwo.SyncTask(c)
+		tasks.Sync(c)
 	case "backup":
 		c := mistertwo.NewConfiguration(args[1])
-		mistertwo.BackupTask(c)
+		tasks.Backup(c)
 	case "restore":
 		c := mistertwo.NewConfiguration(args[1])
-		mistertwo.RestoreTask(c)
+		tasks.Restore(c)
 	default:
 		printAndExit(fmt.Sprintf(
 			"error: '%s' is not a valid command, try '--help' for more information", args[0]), 1)

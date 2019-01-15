@@ -6,7 +6,7 @@ endif
 PKG      = github.com/talal/bonclay
 VERSION := $(shell util/find_version.sh)
 
-GO          := GOPATH=$(CURDIR)/.gopath GOBIN=$(CURDIR)/build go
+GO          := GOBIN=$(CURDIR)/build go
 BUILD_FLAGS :=
 LD_FLAGS    := -s -w -X main.version=$(VERSION)
 
@@ -24,7 +24,7 @@ all: build/bonclay
 # This target uses the incremental rebuild capabilities of the Go compiler to speed things up.
 # If no source files have changed, `go install` exits quickly without doing anything.
 build/bonclay: FORCE
-	$(GO) install $(BUILD_FLAGS) -ldflags '$(LD_FLAGS)' '$(PKG)'
+	$(GO) install $(BUILD_FLAGS) -ldflags '$(LD_FLAGS)' '$(PKG)/cmd/bonclay'
 
 install: FORCE all
 	install -d -m 0755 "$(DESTDIR)$(PREFIX)/bin"
@@ -45,7 +45,7 @@ release-all: FORCE clean
 	GOOS=linux  make release
 
 release/$(BINARY64): FORCE
-	GOARCH=amd64 $(GO) build $(BUILD_FLAGS) -o $@ -ldflags '$(LD_FLAGS)' '$(PKG)'
+	GOARCH=amd64 $(GO) build $(BUILD_FLAGS) -o $@ -ldflags '$(LD_FLAGS)' '$(PKG)/cmd/bonclay'
 
 clean: FORCE
 	rm -rf build release

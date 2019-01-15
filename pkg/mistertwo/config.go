@@ -35,10 +35,10 @@ func NewConfiguration(path string) (config *Configuration) {
 	path = strings.Replace(path, "~", os.Getenv("HOME"), 1)
 
 	b, err := ioutil.ReadFile(path)
-	fatalIfError(err, "could not load config file")
+	fatalIfErr(err, "could not load config file")
 
 	err = yaml.Unmarshal(b, &config)
-	fatalIfError(err, "could not parse config file")
+	fatalIfErr(err, "could not parse config file")
 
 	if !config.validate() {
 		os.Exit(1)
@@ -61,4 +61,17 @@ func (config *Configuration) validate() (isValid bool) {
 	}
 
 	return
+}
+
+// fatalIfErr takes a string and some error, writes it to the os.Stderr in the
+// format:
+//		bonclay: error: string: error value
+// and exits.
+func fatalIfErr(err error, str string) {
+	if err == nil {
+		return
+	}
+
+	fmt.Fprintf(os.Stderr, "bonclay: error: %s: %v\n", str, err)
+	os.Exit(1)
 }
