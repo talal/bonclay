@@ -5,86 +5,73 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"text/template"
 
-	"github.com/talal/bonclay/pkg/mistertwo"
-	"github.com/talal/bonclay/pkg/tasks"
+	"github.com/talal/bonclay/pkg/commands"
+	"github.com/talal/go-bits/cli"
 )
 
 // set by the Makefile at linking time
 var version string
 
-const usageInfo = `
-Usage:
-  bonclay <command> <config-file>
+const appUsageTemplate = `
+Usage: bonclay [OPTIONS] <COMMAND> [COMMAND ARGS...]
 
-Flags:
-  -h, --help
-      Show usage information.
-  -v, --version
-      Show application version.
+Bonclay is a fast and minimal backup tool.
 
-Commands:
-  sync <config-file>
-      Sync creates symbolic links between 'source:target' pairs defined in the
-      configuration spec.
+Options:{{range .Options}}
+  {{printf "%-12s %s" .Name .Desc}}{{end}}
 
-  backup <config-file>
-      Backup uses the 'source:target' pairs defined in the configuration spec
-      to copy the sources to the targets.
-
-  restore <config-file>
-      Restore is the reverse of backup, it uses the 'source:target' pairs defined
-      in the configuration spec to copy the targets to the sources.
+Commands:{{range .Commands}}
+  {{printf "%-12s %s" .Name .Desc}}{{end}}
+{{"\n"}}
 `
 
-const errMsg = `
-error: The following required arguments were not provided:
-    <command> <config-file>
-
-Usage:
-  bonclay <command> <config-file>
-
-For more information try --help
-`
-
-var versionFlag bool
+var commandRegistry = make(cli.CommandRegistry)
 
 func init() {
-	flag.BoolVar(&versionFlag, "version", false, "Show application version.")
-	flag.BoolVar(&versionFlag, "v", false, "Show application version.")
+	commandRegistry.Add(commands.Backup)
+	commandRegistry.Add(commands.Restore)
+	commandRegistry.Add(commands.Sync)
+	commandRegistry.Add(commands.Init)
 }
 
 func main() {
-	flag.Usage = func() { printAndExit(strings.TrimSpace(usageInfo), 0) }
-	flag.Parse()
+	fs := flag.NewFlagSet("bonclay", flag.ExitOnError)
+	versionFlag := fs.Bool("version", false, "Show application version.")
 
-	if versionFlag {
-		printAndExit("bonclay "+version, 0)
+	fs.Usage = func() {
+		var data struct {
+			Commands []cli.Command
+			Options  []cli.Command
+		}
+		data.Commands = commandRegistry.Commands()
+		data.Options = []cli.Command{
+			{Name: "--help", Desc: "Show this screen."},
+			{Name: "--version", Desc: "Show application version."},
+		}
+
+		tmpl := template.Must(template.New("appUsage").Parse(strings.TrimSpace(appUsageTemplate)))
+		tmpl.Execute(os.Stdout, data)
 	}
 
-	args := flag.Args()
+	fs.Parse(os.Args[1:])
 
-	if len(args) != 2 {
-		printAndExit(strings.TrimSpace(errMsg), 1)
+	if *versionFlag {
+		fmt.Println("bonclay " + version)
+		return
 	}
 
-	switch args[0] {
-	case "sync":
-		c := mistertwo.NewConfiguration(args[1])
-		tasks.Sync(c)
-	case "backup":
-		c := mistertwo.NewConfiguration(args[1])
-		tasks.Backup(c)
-	case "restore":
-		c := mistertwo.NewConfiguration(args[1])
-		tasks.Restore(c)
-	default:
-		printAndExit(fmt.Sprintf(
-			"error: '%s' is not a valid command, try '--help' for more information", args[0]), 1)
+	args := fs.Args()
+	if len(args) == 0 {
+		fs.Usage()
+		os.Exit(1)
 	}
-}
 
-func printAndExit(str string, exitCode int) {
-	fmt.Println(str)
-	os.Exit(exitCode)
+	if cmd, ok := commandRegistry[args[0]]; !ok {
+		fmt.Fprintf(os.Stderr, "bonclay: error: unknown command: %s\n", args[0])
+		os.Exit(1)
+	} else {
+		cmd.Action(args[1:])
+	}
 }

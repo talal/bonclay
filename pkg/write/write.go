@@ -19,7 +19,7 @@ func TaskFooter(taskName string, wasSuccessful bool) {
 	if wasSuccessful {
 		color.Printf(color.Green, "\n===> %s Successful\n\n", strings.Title(taskName))
 	} else {
-		color.Printf(color.Red, "\nSome errors occured during %s:\n", taskName)
+		color.Printf(color.Red, "\nSome errors occurred during %s:\n", taskName)
 	}
 }
 
@@ -45,7 +45,9 @@ func taskResponse(src, dst string, wasSuccessful bool) {
 		color.Sprintf(c, arrow), color.Sprintf(color.Blue, dst))
 }
 
-// TaskErrors writes the errors, if any occurred. Duplicates are removed.
+// TaskErrors writes the errors, if any occurred.
+//
+// Duplicates are removed.
 func TaskErrors(errors []string) {
 	if len(errors) == 0 {
 		return

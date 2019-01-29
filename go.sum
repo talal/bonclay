@@ -1,5 +1,7 @@
-github.com/talal/go-bits v0.0.0-20190112130027-6c329ec8a3e2 h1:RugS4dg5Qio894yMikQ6RbsenApo3YMPN+wllQH4uQI=
-github.com/talal/go-bits v0.0.0-20190112130027-6c329ec8a3e2/go.mod h1:HGF/PnMf8971sLP+5fp0PMYV5EN3fwhhDJQmgisBGLQ=
+github.com/talal/go-bits/cli v0.0.0-20190206232352-5b28e4a5144d h1:qcxaWV+wvpPFxV3my+FLyktUumbpvmMUNY3VdtzvsyE=
+github.com/talal/go-bits/cli v0.0.0-20190206232352-5b28e4a5144d/go.mod h1:kFx4bJmukhKFkDqZSjiZD23Iq+7Y2jmqpNIrcc2Ah28=
+github.com/talal/go-bits/color v0.0.0-20190206232352-5b28e4a5144d h1:0QPpMG+hvF/0xUyb3LePTyILUF7LDPquoa9xB0QBMqY=
+github.com/talal/go-bits/color v0.0.0-20190206232352-5b28e4a5144d/go.mod h1:U+jqC1rjMV5j4UPOFjhh9fnBY22Tw5UXhbsXzuLhsvI=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
 gopkg.in/yaml.v2 v2.2.2 h1:ZCJp+EgiOT7lHqUV2J862kp8Qj64Jo6az82+3Td9dZw=
