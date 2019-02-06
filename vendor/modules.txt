@@ -1,4 +1,6 @@
-# github.com/talal/go-bits v0.0.0-20190112130027-6c329ec8a3e2
+# github.com/talal/go-bits/cli v0.0.0-20190206232352-5b28e4a5144d
+github.com/talal/go-bits/cli
+# github.com/talal/go-bits/color v0.0.0-20190206232352-5b28e4a5144d
 github.com/talal/go-bits/color
 # gopkg.in/yaml.v2 v2.2.2
 gopkg.in/yaml.v2

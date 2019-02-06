@@ -9,10 +9,9 @@ The functions in this package work in the same way as their counterpart
 functions in the 'fmt' package:
 
 Example for formatting:
-	// without any formatting
 	coloredString := color.Sprintf(color.Yellow, "make this string yellow.")
 
-	// with formatting
+	// with custom formatting
 	str := "make this string"
 	c   := "blue"
 	coloredString := color.Sprintf(color.Blue, "%s %s", str, c)

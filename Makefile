@@ -1,8 +1,4 @@
-ifeq ($(shell uname -s),Darwin)
-	PREFIX  := /usr/local
-else
-	PREFIX  := /usr
-endif
+PREFIX  := /usr/local
 PKG      = github.com/talal/bonclay
 VERSION := $(shell util/find_version.sh)
 
@@ -27,8 +23,7 @@ build/bonclay: FORCE
 	$(GO) install $(BUILD_FLAGS) -ldflags '$(LD_FLAGS)' '$(PKG)/cmd/bonclay'
 
 install: FORCE all
-	install -d -m 0755 "$(DESTDIR)$(PREFIX)/bin"
-	install -m 0755 build/bonclay "$(DESTDIR)$(PREFIX)/bin/bonclay"
+	install -D build/bonclay "$(DESTDIR)$(PREFIX)/bin/bonclay"
 
 ifeq ($(GOOS),windows)
 release: FORCE release/$(BINARY64)

@@ -1,10 +1,10 @@
 # Bonclay
 
-[![GitHub release](https://img.shields.io/github/release/talal/bonclay.svg)](https://github.com/talal/bonclay/releases/latest)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.org/talal/bonclay.svg?branch=master)](https://travis-ci.org/talal/bonclay)
-[![Go Report Card](https://goreportcard.com/badge/github.com/talal/bonclay)](https://goreportcard.com/report/github.com/talal/bonclay)
-[![GoDoc](https://godoc.org/github.com/talal/bonclay?status.svg)](https://godoc.org/github.com/talal/bonclay)
+[![GitHub Release](https://img.shields.io/github/release/talal/bonclay.svg?style=flat-square)](https://github.com/talal/bonclay/releases/latest)
+[![Build Status](https://img.shields.io/travis/talal/bonclay/master.svg?style=flat-square)](https://travis-ci.org/talal/bonclay)
+[![Go Report Card](https://goreportcard.com/badge/github.com/talal/bonclay?style=flat-square)](https://goreportcard.com/report/github.com/talal/bonclay)
+[![Software License](https://img.shields.io/github/license/talal/bonclay.svg?style=flat-square)](LICENSE)
+
 
 Bonclay is a fast and minimal backup tool.
 

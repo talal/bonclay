@@ -17,16 +17,13 @@ type Configuration struct {
 	Restore struct {
 		Overwrite bool `yaml:"overwrite"`
 	} `yaml:"restore"`
-	Sync SyncOpts `yaml:"sync"`
+	Sync struct {
+		Clean     bool `yaml:"clean"`
+		Overwrite bool `yaml:"overwrite"`
+	} `yaml:"sync"`
 	// Spec is a map of source to target, where source/target are
 	// the path to a file or a directory.
 	Spec map[string]string `yaml:"spec"`
-}
-
-// SyncOpts contains different options that change the sync task's behavior.
-type SyncOpts struct {
-	Clean     bool `yaml:"clean"`
-	Overwrite bool `yaml:"overwrite"`
 }
 
 // NewConfiguration reads and validates a configuration file.
@@ -35,10 +32,16 @@ func NewConfiguration(path string) (config *Configuration) {
 	path = strings.Replace(path, "~", os.Getenv("HOME"), 1)
 
 	b, err := ioutil.ReadFile(path)
-	fatalIfErr(err, "could not load config file")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "bonclay: error: could not load config file: %v\n", err)
+		os.Exit(1)
+	}
 
 	err = yaml.Unmarshal(b, &config)
-	fatalIfErr(err, "could not parse config file")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "bonclay: error: could not parse config file: %v\n", err)
+		os.Exit(1)
+	}
 
 	if !config.validate() {
 		os.Exit(1)
@@ -61,17 +64,4 @@ func (config *Configuration) validate() (isValid bool) {
 	}
 
 	return
-}
-
-// fatalIfErr takes a string and some error, writes it to the os.Stderr in the
-// format:
-//		bonclay: error: string: error value
-// and exits.
-func fatalIfErr(err error, str string) {
-	if err == nil {
-		return
-	}
-
-	fmt.Fprintf(os.Stderr, "bonclay: error: %s: %v\n", str, err)
-	os.Exit(1)
 }

@@ -4,7 +4,7 @@ Bonclay requires a configuration file in [YAML format](http://yaml.org). A minim
 
 ```yaml
 backup:
-  overwrite: true
+  overwrite: false
 
 restore:
   overwrite: false
@@ -14,9 +14,9 @@ sync:
   overwrite: true
 
 spec:
-  ~/file: testfile
-  ~/example/directory: test-dir
-  ~/example/dir with space in name/file: test-dir2/testfile2
+  ~/examplefile: file
+  ~/exampledir: dir
+  ~/dir/another one: another one
 ```
 
 The configuration file contains:
@@ -25,12 +25,13 @@ The configuration file contains:
 
 You can use multiple configuration files for different tasks.
 
-## Operations
+## Commands
 
-Bonclay has three operations:
+Bonclay has four operations:
 - Sync
 - Backup
 - Restore
+- Init
 
 ### Sync
 
