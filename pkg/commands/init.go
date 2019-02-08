@@ -20,8 +20,8 @@ example spec section.
 `
 
 const exampleConfig = `
-# For a detailed description on the different options, take a look at the
-# user guide: https://github.com/talal/bonclay/blob/master/doc/guide.md
+# For a detailed description on the different options and how to configure them,
+# refer to the user guide: https://github.com/talal/bonclay/blob/master/doc/guide.md
 backup:
   overwrite: false
 
@@ -34,8 +34,9 @@ sync:
 
 spec:
   # ~/examplefile: file
-  # ~/exampledir: dir
-  # ~/dir/another one: another one
+  # ../../examplefile: ../file
+  # ~/example dir: dir
+  # ../example dir/some other dir: ../new dir
 `
 
 // Init represents the init command.

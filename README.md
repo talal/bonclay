@@ -8,20 +8,37 @@
 
 Bonclay is a fast and minimal backup tool.
 
-Bonclay uses its configuration spec to backup, restore, or sync the specified files/directories.
+Bonclay uses a yaml file that has `source:target` pairs to backup, restore, or sync the specified files/directories.
+
+The following is a demo on how you can use Bonclay to manage your dotfiles:
+
+[![asciicast](https://asciinema.org/a/226247.svg)](https://asciinema.org/a/226247)
+
+Refer to use [user guide](./doc/guide.md) for instructions.
 
 ## Installation
 
+### Installer script
+
+The simplest way to install Bonclay on Linux or macOS is to run:
+
+```
+$ sh -c "$(curl -sL git.io/getbonclay)"
+```
+
+This will put the binary in `/usr/local/bin/bonclay`
+
 ### Pre-compiled binaries
 
-Pre-compiled binaries for Linux and macOS are avaiable on the [releases page](https://github.com/talal/bonclay/releases/latest).
+Pre-compiled binaries for Linux and macOS are avaiable on the
+[releases page](https://github.com/talal/bonclay/releases/latest).
 
 The binaries are static executables.
 
 ### Homebrew
 
 ```
-brew install talal/tap/bonclay
+$ brew install talal/tap/bonclay
 ```
 
 ### Building from source
@@ -34,8 +51,8 @@ $ cd $GOPATH/src/github.com/talal/bonclay
 $ make install
 ```
 
-this will put the binary in `/usr/bin/bonclay` or `/usr/local/bin/bonclay` for macOS.
+This will put the binary in `/usr/local/bin/bonclay`
 
 ## Usage
 
-Take a look at the [user guide](./doc/guide.md).
+Refer to the [user guide](./doc/guide.md).
