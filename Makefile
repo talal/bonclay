@@ -20,7 +20,7 @@ all: build/bonclay
 # This target uses the incremental rebuild capabilities of the Go compiler to speed things up.
 # If no source files have changed, `go install` exits quickly without doing anything.
 build/bonclay: FORCE
-	$(GO) install $(BUILD_FLAGS) -ldflags '$(LD_FLAGS)' '$(PKG)/cmd/bonclay'
+	$(GO) install $(BUILD_FLAGS) -ldflags '$(LD_FLAGS)' '$(PKG)'
 
 install: FORCE all
 	install -D build/bonclay "$(DESTDIR)$(PREFIX)/bin/bonclay"
@@ -40,9 +40,9 @@ release-all: FORCE clean
 	GOOS=linux  make release
 
 release/$(BINARY64): FORCE
-	GOARCH=amd64 $(GO) build $(BUILD_FLAGS) -o $@ -ldflags '$(LD_FLAGS)' '$(PKG)/cmd/bonclay'
+	GOARCH=amd64 $(GO) build $(BUILD_FLAGS) -o $@ -ldflags '$(LD_FLAGS)' '$(PKG)'
 
 clean: FORCE
-	rm -rf build release
+	rm -rf -- build release
 
 .PHONY: FORCE
