@@ -1,4 +1,4 @@
-package mistertwo
+package core
 
 import (
 	"fmt"

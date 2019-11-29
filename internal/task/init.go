@@ -1,4 +1,4 @@
-package commands
+package task
 
 import (
 	"fmt"
@@ -27,9 +27,9 @@ spec:
   # ../example dir/some other dir: ../new dir
 `
 
-// InitTask creates a sample config file (bonclay.conf.yaml) in the current
+// Init creates a sample config file (bonclay.conf.yaml) in the current
 // directory.
-func InitTask() {
+func Init() {
 	cwd, err := os.Getwd()
 	if err != nil {
 		cwd = os.Getenv("PWD")

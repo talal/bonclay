@@ -1,4 +1,4 @@
-package write
+package core
 
 import (
 	"fmt"
@@ -9,13 +9,13 @@ import (
 
 const arrow = "-->"
 
-// TaskHeader writes the task header message followed by a new line.
-func TaskHeader(taskName string) {
+// WriteTaskHeader writes the task header message followed by a new line.
+func WriteTaskHeader(taskName string) {
 	color.Printf(color.Cyan, "bonclay: %s task\n\n", taskName)
 }
 
-// TaskFooter writes the task footer message followed by a new line.
-func TaskFooter(taskName string, wasSuccessful bool) {
+// WriteTaskFooter writes the task footer message followed by a new line.
+func WriteTaskFooter(taskName string, wasSuccessful bool) {
 	if wasSuccessful {
 		color.Printf(color.Green, "\n===> %s Successful\n\n", strings.Title(taskName))
 	} else {
@@ -23,15 +23,15 @@ func TaskFooter(taskName string, wasSuccessful bool) {
 	}
 }
 
-// TaskSuccess writes a success response for a src/dst pair, where src/dst is
-// either a file or a directory.
-func TaskSuccess(src, dst string) {
+// WriteTaskSuccess writes a success response for a src/dst pair, where src/dst
+// is either a file or a directory.
+func WriteTaskSuccess(src, dst string) {
 	taskResponse(src, dst, true)
 }
 
-// TaskFailure writes a failure response for a src/dst pair, where src/dst is
-// either a file or a directory.
-func TaskFailure(src, dst string) {
+// WriteTaskFailure writes a failure response for a src/dst pair, where src/dst
+// is either a file or a directory.
+func WriteTaskFailure(src, dst string) {
 	taskResponse(src, dst, false)
 }
 
@@ -45,10 +45,10 @@ func taskResponse(src, dst string, wasSuccessful bool) {
 		color.Sprintf(c, arrow), color.Sprintf(color.Blue, dst))
 }
 
-// TaskErrors writes the errors, if any occurred.
+// WriteTaskErrors writes the errors, if any occurred.
 //
 // Duplicates are removed.
-func TaskErrors(errors []string) {
+func WriteTaskErrors(errors []string) {
 	if len(errors) == 0 {
 		return
 	}

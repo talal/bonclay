@@ -10,7 +10,7 @@ import (
 // Copy copies a src to dst, where src is either a file or a directory.
 //
 // Directories are copied recursively. if dst already exists then it is
-// overwritten as per the value of overwrite.
+// overwritten as per the value of overcore.
 func Copy(src, dst string, overwrite bool) error {
 	srcAbsPath, err := fullPath(src)
 	if err != nil {
@@ -102,7 +102,7 @@ func makeWalkFunc(src, dst string, overwrite bool) filepath.WalkFunc {
 }
 
 // copyFile is a helper function for Copy() that copies a file from src to dst.
-// If dst already exists then it is overwritten as per the value of overwrite.
+// If dst already exists then it is overwritten as per the value of overcore.
 func copyFile(src, dst string, srcFi os.FileInfo, overwrite bool) error {
 	dstFile, err := os.OpenFile(dst, os.O_WRONLY|os.O_CREATE, 0200)
 	if err != nil {

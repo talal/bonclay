@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/talal/bonclay/pkg/commands"
-	"github.com/talal/bonclay/pkg/mistertwo"
+	"github.com/talal/bonclay/internal/core"
+	"github.com/talal/bonclay/internal/task"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
@@ -35,12 +35,12 @@ func main() {
 	cmd := kingpin.MustParse(app.Parse(os.Args[1:]))
 	switch cmd {
 	case initCmd.FullCommand():
-		commands.InitTask()
+		task.Init()
 	case backupCmd.FullCommand():
-		commands.BackupTask(mistertwo.NewConfiguration(*backupCfgFile))
+		task.Backup(core.NewConfiguration(*backupCfgFile))
 	case restoreCmd.FullCommand():
-		commands.RestoreTask(mistertwo.NewConfiguration(*restoreCfgFile))
+		task.Restore(core.NewConfiguration(*restoreCfgFile))
 	case syncCmd.FullCommand():
-		commands.SyncTask(mistertwo.NewConfiguration(*syncCfgFile))
+		task.Sync(core.NewConfiguration(*syncCfgFile))
 	}
 }
