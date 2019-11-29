@@ -1,23 +1,11 @@
 package commands
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/talal/go-bits/cli"
 )
-
-const initDesc = `Create a new config file in the current directory.`
-
-const initUsage = `
-Usage: bonclay init
-
-Create a new config file in the current directory with sane defaults and
-example spec section.
-`
 
 const exampleConfig = `
 # For a detailed description on the different options and how to configure them,
@@ -39,36 +27,9 @@ spec:
   # ../example dir/some other dir: ../new dir
 `
 
-// Init represents the init command.
-var Init = makeInitCmd()
-
-func makeInitCmd() cli.Command {
-	fs := flag.NewFlagSet("bonclay init", flag.ExitOnError)
-
-	fs.Usage = func() {
-		fmt.Println(strings.TrimSpace(initUsage))
-	}
-
-	return cli.Command{
-		Name: "init",
-		Desc: initDesc,
-		Action: func(args []string) {
-			fs.Parse(args)
-			args = fs.Args()
-
-			if len(args) > 0 {
-				fs.Usage()
-				os.Exit(1)
-			}
-
-			initTask()
-		},
-	}
-}
-
-// initTask creates a sample config file (bonclay.conf.yaml) in the current
+// InitTask creates a sample config file (bonclay.conf.yaml) in the current
 // directory.
-func initTask() {
+func InitTask() {
 	cwd, err := os.Getwd()
 	if err != nil {
 		cwd = os.Getenv("PWD")

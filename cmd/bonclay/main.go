@@ -1,77 +1,46 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"os"
-	"strings"
-	"text/template"
 
 	"github.com/talal/bonclay/pkg/commands"
-	"github.com/talal/go-bits/cli"
+	"github.com/talal/bonclay/pkg/mistertwo"
+	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
 
-// set by the Makefile at linking time
-var version string
+var (
+	// set by the Makefile at linking time
+	version string
 
-const appUsageTemplate = `
-Usage: bonclay [OPTIONS] <COMMAND> [COMMAND ARGS...]
+	app = kingpin.New("bonclay", "A fast and minimal backup tool")
 
-Bonclay is a fast and minimal backup tool.
+	initCmd = app.Command("init", "Create a new config file in the current directory")
 
-Options:{{range .Options}}
-  {{printf "%-12s %s" .Name .Desc}}{{end}}
+	backupCmd     = app.Command("backup", "Backup files/directories to their target location")
+	backupCfgFile = backupCmd.Arg("config-file", "Path to the config file").Required().String()
 
-Commands:{{range .Commands}}
-  {{printf "%-12s %s" .Name .Desc}}{{end}}
-{{"\n"}}
-`
+	restoreCmd     = app.Command("restore", "Restore files/directories to their original location")
+	restoreCfgFile = restoreCmd.Arg("config-file", "Path to the config file").Required().String()
 
-var commandRegistry = make(cli.CommandRegistry)
-
-func init() {
-	commandRegistry.Add(commands.Backup)
-	commandRegistry.Add(commands.Restore)
-	commandRegistry.Add(commands.Sync)
-	commandRegistry.Add(commands.Init)
-}
+	syncCmd     = app.Command("sync", "Sync files/directories")
+	syncCfgFile = syncCmd.Arg("config-file", "Path to the config file").Required().String()
+)
 
 func main() {
-	fs := flag.NewFlagSet("bonclay", flag.ExitOnError)
-	versionFlag := fs.Bool("version", false, "Show application version.")
+	app.Version("bonclay version " + version)
+	app.VersionFlag.Short('v')
+	app.HelpFlag.Short('h')
 
-	fs.Usage = func() {
-		var data struct {
-			Commands []cli.Command
-			Options  []cli.Command
-		}
-		data.Commands = commandRegistry.Commands()
-		data.Options = []cli.Command{
-			{Name: "--help", Desc: "Show this screen."},
-			{Name: "--version", Desc: "Show application version."},
-		}
-
-		tmpl := template.Must(template.New("appUsage").Parse(strings.TrimSpace(appUsageTemplate)))
-		tmpl.Execute(os.Stdout, data)
-	}
-
-	fs.Parse(os.Args[1:])
-
-	if *versionFlag {
-		fmt.Println("bonclay " + version)
-		return
-	}
-
-	args := fs.Args()
-	if len(args) == 0 {
-		fs.Usage()
-		os.Exit(1)
-	}
-
-	if cmd, ok := commandRegistry[args[0]]; !ok {
-		fmt.Fprintf(os.Stderr, "bonclay: error: unknown command: %s\n", args[0])
-		os.Exit(1)
-	} else {
-		cmd.Action(args[1:])
+	// parse all command-line args and flags
+	cmd := kingpin.MustParse(app.Parse(os.Args[1:]))
+	switch cmd {
+	case initCmd.FullCommand():
+		commands.InitTask()
+	case backupCmd.FullCommand():
+		commands.BackupTask(mistertwo.NewConfiguration(*backupCfgFile))
+	case restoreCmd.FullCommand():
+		commands.RestoreTask(mistertwo.NewConfiguration(*restoreCfgFile))
+	case syncCmd.FullCommand():
+		commands.SyncTask(mistertwo.NewConfiguration(*syncCfgFile))
 	}
 }
