@@ -43,24 +43,9 @@ func NewConfiguration(path string) (config *Configuration) {
 		os.Exit(1)
 	}
 
-	if !config.validate() {
-		os.Exit(1)
-	}
-
-	return
-}
-
-// validate is a helper function that checks if a Configuration is valid.
-func (config *Configuration) validate() (isValid bool) {
-	isValid = true // until proven otherwise
-
-	missing := func(str string) {
-		fmt.Fprintf(os.Stderr, "error: invalid config file: %s\n", str)
-		isValid = false
-	}
-
 	if len(config.Spec) == 0 {
-		missing("no files/directories specified in the config file's spec.")
+		fmt.Fprintln(os.Stderr, "error: invalid config file: no files/directories specified in the config file's spec.")
+		os.Exit(1)
 	}
 
 	return
