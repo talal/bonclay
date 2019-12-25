@@ -14,7 +14,7 @@ The following is a demo on how you can use Bonclay to manage your dotfiles:
 
 [![asciicast](https://asciinema.org/a/226247.svg)](https://asciinema.org/a/226247)
 
-Refer to use [user guide](./doc/guide.md) for instructions.
+Refer to use [user guide](./docs/guide.md) for instructions.
 
 ## Installation
 
@@ -55,4 +55,4 @@ This will put the binary in `/usr/local/bin/bonclay`
 
 ## Usage
 
-Refer to the [user guide](./doc/guide.md).
+Refer to the [user guide](./docs/guide.md).
