@@ -1,3 +1,8 @@
+# Archived project. No maintenance.
+
+This project is not maintained anymore and is archived. Feel free to fork and
+make your own changes if needed.
+
 # Bonclay
 
 [![GitHub Release](https://img.shields.io/github/release/talal/bonclay.svg?style=flat-square)](https://github.com/talal/bonclay/releases/latest)
