@@ -1,14 +1,11 @@
 # Archived project. No maintenance.
 
 **What does this mean?** No further code will be committed and the repository
-will remain in a read-only state. [Releases][releases] will still be available
-for download. Any existing projects that use Bonclay will continue to work.
+will remain in a read-only state.
 
-**Current status:** Bonclay is stable (as far as I know).
+**Why?** I no longer have the time to maintain this project.
 
-**Why?** I no longer use Bonclay personally, I've switched to using
-[`chezmoi`](https://github.com/twpayne/chezmoi) for dotfiles and
-[Vorta](https://github.com/borgbase/vorta) for backups.
+Feel free to fork and make your own changes if needed :)
 
 # Bonclay
 
